@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <section class="converter">
+            <header class="header">
+                <h1>Conversor de Moedas</h1>
+            </header>
+            <div class="form">
+                <div class="input-group">
+                    <label for="valor">Valor</label>
+                    <input
+                        type="number"
+                        id="valor"
+                        placeholder="Digite um valor"
+                        min="0"
+                        step="0.01"
+                    >
+                </div>
+                <div class="currency-row">
+                    <div class="input-group">
+                        <label for="moedaOrigem">De</label>
+                        <select id="moedaOrigem">
+                            <option value="BRL"> Real (BRL)</option>
+                            <option value="USD"> Dólar (USD)</option>
+                            <option value="EUR"> Euro (EUR)</option>
+                            <option value="GBP"> Libra (GBP)</option>
+                        </select>
+                    </div>
+                    <button class="swap-btn" id="trocarMoedas" title="Inverter moedas">
+                        ⇄
+                    </button>
+                    <div class="input-group">
+                        <label for="moedaDestino">Para</label>
+                        <select id="moedaDestino">
+                            <option value="USD"> Dólar (USD)</option>
+                            <option value="BRL"> Real (BRL)</option>
+                            <option value="EUR"> Euro (EUR)</option>
+                            <option value="GBP"> Libra (GBP)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="convert-btn" id="converter">
+                    Converter
+                </button>
+            </div>
+            <section class="result">
+                <span class="result-label">Resultado</span>
+                <h2 id="resultado">
+                    US$ 0,00
+                </h2>
+                <p id="cotacao">
+                    1 USD = R$ 0,00
+                </p>
+                <div class="variation" id="variacao">
+                    <span>▲</span>
+                    <span id="valorVariacao">+0,00% hoje</span>
+                </div>
+            </section>
+            <section class = "historico-conteiner">
+                <h3>ultimas conversoes</h3>
+                <ul id="listaHistorico"></ul>
+                <button id = "limparHistorico"></button>
+            </section>
+        </section>
+    </main>
+    <script src="api.js"></script>
+    <script src ="storage.js"></script>
+    <script src ="conversor.js"></script>
+</body>
+</html>

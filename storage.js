@@ -1,18 +1,15 @@
-// 1. Busca os dados no localStorage
 function gethistorico() {
-    var data = localStorage.getItem("conversaodehistorico"); //getItem em vez de setItem
+    var data = localStorage.getItem("conversaodehistorico"); 
     if (data) {
         return JSON.parse(data);
     }
     return [];
 }
 
-// 2. Adiciona item limitando a no máximo 5 registros
 function addhistorico(conversao) {
     var historia = gethistorico();
     historia.unshift(conversao);
 
-    // Sem o ponto e vírgula após a condição para evitar loop infinito
     while (historia.length > 5) {
         historia.pop();
     }
@@ -20,35 +17,33 @@ function addhistorico(conversao) {
     localStorage.setItem("conversaodehistorico", JSON.stringify(historia));
 }
 
-// 3. Renderiza a lista no HTML
 function renderizarHistorico() {
-    const listaHTML = document.getElementById("listaHistorico"); // Aspas adicionadas
+    const listaHTML = document.getElementById("listaHistorico"); 
     if (!listaHTML) return;
 
     const historico = gethistorico();
     listaHTML.innerHTML = "";
 
     if (historico.length === 0) {
-        listaHTML.innerHTML = "<li>Nenhuma conversão realizada</li>"; // Aspas adicionadas
+        listaHTML.innerHTML = "<li style='padding:10px;'>Nenhuma conversão realizada</li>"; 
         return;
     }
 
     historico.forEach(item => {
+        
         const li = document.createElement("li");
-        li.innerHTML = `"${item.valor}" ${item.de} ➔ ${item.total} ${item.para} (${item.data})`;
+        
+        li.innerHTML = `
+            <div class="col-origem">${item.valor} ${item.de}</div>
+            <div class="col-seta">➔</div>
+            <div class="col-destino">${item.total} ${item.para}</div>
+            <div class="col-hora">${item.data}</div>
+        `;
+        
         listaHTML.appendChild(li);
     });
-}
+} 
 
-// 4. Configuração dos Eventos
 document.addEventListener("DOMContentLoaded", () => {
     renderizarHistorico();
-
-    const btnLimpar = document.getElementById("btnLimparHistorico");
-    if (btnLimpar) {
-        btnLimpar.addEventListener("click", () => {
-            localStorage.removeItem("conversaodehistorico");
-            renderizarHistorico();
-        });
-    }
 });
